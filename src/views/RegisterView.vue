@@ -89,6 +89,7 @@ async function handleRegister() {
     await api.post('/api/v1/auth/register', {
       username: username.value,
       password: password.value,
+      confirm_password:confirmPassword.value
     })
     router.push('/')
   } catch (err: any) {
