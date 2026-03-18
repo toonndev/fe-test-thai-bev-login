@@ -11,8 +11,8 @@ defineProps<{ title: string }>()
 <style scoped>
 .app-header {
   width: 100%;
-  background-color: #4CAF50;
-  color: white;
+  background-color: #ccf1ce;
+  color: rgb(0, 0, 0);
   padding: 16px 24px;
   font-size: 1.25rem;
   font-weight: bold;
