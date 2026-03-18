@@ -1,4 +1,5 @@
 <template>
+  <ToastNotification ref="toast" />
   <AppHeader title="IT 02-2" />
   <div class="page-wrapper">
     <div class="form-card">
@@ -51,9 +52,11 @@
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import AppHeader from '../components/AppHeader.vue'
+import ToastNotification from '../components/ToastNotification.vue'
 import api from '../api/axios'
 
 const router = useRouter()
+const toast = ref<InstanceType<typeof ToastNotification> | null>(null)
 
 const username = ref('')
 const password = ref('')
@@ -91,7 +94,8 @@ async function handleRegister() {
       password: password.value,
       confirm_password:confirmPassword.value
     })
-    router.push('/')
+    toast.value?.show('สมัครสมาชิกสำเร็จ', 'success')
+    setTimeout(() => router.push('/'), 1500)
   } catch (err: any) {
     apiError.value = err.response?.data?.message || 'สมัครสมาชิกไม่สำเร็จ กรุณาลองอีกครั้ง'
   } finally {
