@@ -1,4 +1,5 @@
 <template>
+  <ToastNotification ref="toast" />
   <AppHeader title="IT 02-3" />
   <div class="page-wrapper">
     <p class="welcome-text">Welcome  User : {{ authStore.username }}</p>
@@ -12,20 +13,25 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import AppHeader from '../components/AppHeader.vue'
+import ToastNotification from '../components/ToastNotification.vue'
 import { useAuthStore } from '../stores/auth'
 import api from '../api/axios'
 
 const router = useRouter()
 const authStore = useAuthStore()
 const loading = ref(false)
+const toast = ref<InstanceType<typeof ToastNotification> | null>(null)
 
 async function handleLogout() {
   loading.value = true
   try {
     await api.post('/api/v1/auth/logout')
   } finally {
-    authStore.logout()
-    router.push('/')
+    toast.value?.show('ออกจากระบบสำเร็จ', 'success')
+    setTimeout(() => {
+      authStore.logout()
+      router.push('/')
+    }, 1500)
   }
 }
 </script>
